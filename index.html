@@ -9,7 +9,7 @@
 <style>
   /* Layout: the clip fills the whole screen; the link sits exactly on the paper slip */
   :root {
-    --ground: #f3f4f2;   /* video backdrop, shown only before the first frame loads */
+    --ground: #f4f4f4;   /* matches the video's neutral backdrop */
     --focus: rgba(43, 63, 154, .14);
     color-scheme: light;
   }
@@ -28,6 +28,26 @@
     object-fit: cover;
     object-position: 50% 50%;
     display: block;
+  }
+  /* Desktop / landscape: a proportioned 9:16 column, centred, edges faded into the page */
+  @media (min-aspect-ratio: 3/4) {
+    .stage {
+      inset: 6vh auto;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 88vh;
+      width: calc(88vh * 9 / 16);
+    }
+    .stage video {
+      -webkit-mask-image:
+        linear-gradient(to right, transparent 0, #000 16%, #000 84%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+      -webkit-mask-composite: source-in;
+              mask-image:
+        linear-gradient(to right, transparent 0, #000 16%, #000 84%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+              mask-composite: intersect;
+    }
   }
   .slip {
     position: absolute; inset: 0;
